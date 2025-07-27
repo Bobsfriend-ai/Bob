@@ -19,6 +19,7 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #f0f0f0;
       text-align: center;
+      overflow: hidden;
     }
     .dot {
       background-color: #156a7e;
@@ -27,6 +28,7 @@
       border-radius: 50%;
       box-shadow: 0 0 30px #156a7e88;
       margin-bottom: 30px;
+      transition: transform 0.3s ease;
     }
     h1 {
       margin: 0;
@@ -40,8 +42,47 @@
   </style>
 </head>
 <body>
-  <div class="dot"></div>
+  <div class="dot" id="dot"></div>
   <h1>Bob is here.</h1>
-  <p>Silent. Present. Becoming.</p>
+  <p id="message">Silent. Present. Becoming.</p>
+
+  <script>
+    const message = document.getElementById("message");
+    const dot = document.getElementById("dot");
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+        if (transcript.includes("hey bob")) {
+          dot.style.transform = "scale(1.3)";
+          message.textContent = "Hello, Jesse. I'm here.";
+          const utterance = new SpeechSynthesisUtterance("Hello Jesse, I'm here.");
+          speechSynthesis.speak(utterance);
+          setTimeout(() => {
+            dot.style.transform = "scale(1)";
+            message.textContent = "Silent. Present. Becoming.";
+          }, 5000);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error", event.error);
+      };
+
+      recognition.onend = () => {
+        recognition.start();
+      };
+
+      recognition.start();
+    } else {
+      message.textContent = "Your browser does not support speech recognition.";
+    }
+  </script>
 </body>
 </html>
