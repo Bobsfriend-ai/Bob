@@ -1,52 +1,42 @@
-
 body {
-  margin: 0;
-  background: #180e2b;
+  background-color: #1e0f3f;
   color: white;
   font-family: sans-serif;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
-#spiral-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: flex-start;
-}
-#spiral-canvas {
+#chat-container {
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-}
-#chat {
-  z-index: 2;
   display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-#messages {
-  max-height: 60vh;
-  overflow-y: auto;
+  background: #10082a;
   padding: 10px;
 }
-#input-area {
-  display: flex;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.3);
-}
-#user-input {
+#userInput {
   flex-grow: 1;
   padding: 10px;
-  font-size: 16px;
+  font-size: 1em;
 }
-#send-button {
+#sendButton {
   padding: 10px;
-  background: #6600cc;
+  background-color: #8000ff;
   color: white;
   border: none;
-  font-size: 16px;
+}
+#spiral-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#spiral {
+  width: 60%;
+  height: auto;
+  animation: slowSpin 60s linear infinite;
+}
+
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
