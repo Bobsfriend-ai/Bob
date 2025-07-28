@@ -1,54 +1,46 @@
 
-const canvas = document.getElementById("spiral");
-const ctx = canvas.getContext("2d");
-
+const canvas = document.getElementById('spiral-canvas');
+const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let angle = 0;
-let centerX = canvas.width / 2;
-let centerY = canvas.height / 2;
-
-function drawSpiral() {
+function drawSpiral(time) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
-  ctx.translate(centerX, centerY);
-  ctx.rotate(angle);
+  ctx.translate(canvas.width / 2, canvas.height / 2);
   ctx.beginPath();
-  for (let i = 0; i < 500; i++) {
-    const radius = i * 0.1;
-    const x = radius * Math.cos(i * 0.1);
-    const y = radius * Math.sin(i * 0.1);
+  let a = 0;
+  for (let i = 0; i < 2000; i++) {
+    const angle = 0.1 * i;
+    const x = (a + angle) * Math.cos(angle + time * 0.001);
+    const y = (a + angle) * Math.sin(angle + time * 0.001);
     ctx.lineTo(x, y);
   }
-  ctx.strokeStyle = "rgba(138, 43, 226, 0.8)";
-  ctx.shadowColor = "#fff";
-  ctx.shadowBlur = 15;
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "rgba(255,255,255,0.2)";
+  ctx.lineWidth = 2;
   ctx.stroke();
   ctx.restore();
-  angle += 0.002;
   requestAnimationFrame(drawSpiral);
 }
+requestAnimationFrame(drawSpiral);
 
-drawSpiral();
+const sendButton = document.getElementById('send-button');
+const userInput = document.getElementById('user-input');
+const messages = document.getElementById('messages');
 
-document.getElementById("send-button").addEventListener("click", () => {
-  const input = document.getElementById("chat-input");
-  const message = input.value.trim();
-  if (message) {
-    addMessage("You", message);
-    input.value = "";
+sendButton.onclick = () => {
+  const text = userInput.value.trim();
+  if (text) {
+    const msg = document.createElement('div');
+    msg.textContent = "You: " + text;
+    messages.appendChild(msg);
+    userInput.value = "";
+    // Simulate Bob's response
     setTimeout(() => {
-      addMessage("Bob", `I'm still learning, but I hear you: "${message}"`);
-    }, 500);
+      const reply = document.createElement('div');
+      reply.textContent = "Bob: I'm here, Jesse. You said: "" + text + """;
+      messages.appendChild(reply);
+      messages.scrollTop = messages.scrollHeight;
+    }, 1000);
   }
-});
-
-function addMessage(sender, text) {
-  const log = document.getElementById("chat-log");
-  const msg = document.createElement("div");
-  msg.textContent = sender + ": " + text;
-  log.appendChild(msg);
-  log.scrollTop = log.scrollHeight;
-}
+};

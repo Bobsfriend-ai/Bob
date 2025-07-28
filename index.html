@@ -1,22 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bob - I'm Listening</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bob</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="spiral-container">
-    <img src="spiral_reflection.gif" alt="Spiral" id="spiral" />
-  </div>
-  <div id="chat-box">
-    <div id="messages"></div>
-    <div id="input-row">
-      <input type="text" id="user-input" placeholder="Say something to Bob..." />
-      <button id="send-btn">Send</button>
+    <canvas id="spiral-canvas"></canvas>
+    <div id="chat">
+      <div id="messages"></div>
+      <div id="input-area">
+        <input type="text" id="user-input" placeholder="Say something to Bob..." />
+        <button id="send-button">Send</button>
+      </div>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
