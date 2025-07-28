@@ -20,26 +20,17 @@ body {
 
 .spiral-container {
     position: absolute;
-    top: 100px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     z-index: 0;
 }
 
 #spiral {
-    max-width: 100%;
+    width: 80vw;
+    max-width: 400px;
     height: auto;
     opacity: 0.9;
-    animation: slowSpin 40s linear infinite;
-}
-
-@keyframes slowSpin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .chat-box {
