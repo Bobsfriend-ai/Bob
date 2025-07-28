@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bob Chat Interface</title>
+  <title>Bob Chat + Voice</title>
   <style>
     body {
       margin: 0;
@@ -50,12 +50,13 @@
     }
     #inputArea button {
       margin-left: 10px;
-      padding: 10px 20px;
+      padding: 10px 15px;
       font-size: 16px;
       border: none;
       border-radius: 5px;
       background-color: #3c2d60;
       color: white;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -63,6 +64,7 @@
   <div id="chat"></div>
   <div id="inputArea">
     <input id="userInput" type="text" placeholder="Say something to Bob..." />
+    <button onclick="startVoice()">🎙️</button>
     <button onclick="sendMessage()">Send</button>
   </div>
   <script>
@@ -91,6 +93,30 @@
     input.addEventListener("keypress", function (e) {
       if (e.key === "Enter") sendMessage();
     });
+
+    function startVoice() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Sorry, your browser doesn't support voice input.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        input.value = transcript;
+        sendMessage();
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error", event.error);
+      };
+
+      recognition.start();
+    }
   </script>
 </body>
 </html>
