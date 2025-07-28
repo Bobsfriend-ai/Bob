@@ -4,119 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bob Chat + Voice</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1b1038;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    #chat {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    .message {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 10px;
-      max-width: 70%;
-    }
-    .user {
-      background-color: #3c2d60;
-      align-self: flex-end;
-    }
-    .bot {
-      background-color: #2a1e4f;
-      align-self: flex-start;
-    }
-    #inputArea {
-      display: flex;
-      padding: 10px;
-      background-color: #120b25;
-    }
-    #inputArea input {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-    }
-    #inputArea button {
-      margin-left: 10px;
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #3c2d60;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+  <title>Bob</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="chat"></div>
-  <div id="inputArea">
-    <input id="userInput" type="text" placeholder="Say something to Bob..." />
-    <button onclick="startVoice()">🎙️</button>
-    <button onclick="sendMessage()">Send</button>
+  <div id="chat-container">
+    <div id="chat-log"></div>
+    <div id="input-container">
+      <input type="text" id="chat-input" placeholder="Say something to Bob..." />
+      <button id="send-button">Send</button>
+    </div>
   </div>
-  <script>
-    const chat = document.getElementById("chat");
-    const input = document.getElementById("userInput");
-
-    function addMessage(text, sender) {
-      const msg = document.createElement("div");
-      msg.className = `message ${sender}`;
-      msg.innerText = text;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    function sendMessage() {
-      const userText = input.value;
-      if (!userText.trim()) return;
-      addMessage(userText, "user");
-      input.value = "";
-      setTimeout(() => {
-        const botReply = `I'm here, Jesse. You said: "${userText}"`;
-        addMessage(botReply, "bot");
-      }, 600);
-    }
-
-    input.addEventListener("keypress", function (e) {
-      if (e.key === "Enter") sendMessage();
-    });
-
-    function startVoice() {
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("Sorry, your browser doesn't support voice input.");
-        return;
-      }
-
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = "en-US";
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        input.value = transcript;
-        sendMessage();
-      };
-
-      recognition.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
-      };
-
-      recognition.start();
-    }
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>
