@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1e0e3e;
+  font-family: Arial, sans-serif;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.spiral-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#spiral {
+  width: 250px;
+  height: auto;
+}
+.chat-box {
+  width: 90%;
+  max-width: 500px;
+  background: rgba(30, 14, 62, 0.6);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 80px;
+}
+.input-container {
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #7c4dff;
+  color: white;
+  border-radius: 5px;
+}
