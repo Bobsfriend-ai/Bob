@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,15 +28,37 @@
       box-shadow: 0 0 30px #156a7e88;
       margin-bottom: 30px;
       transition: transform 0.3s ease;
+      animation: pulse 2s infinite ease-in-out;
     }
-    h1 {
-      margin: 0;
-      font-size: 2em;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px #156a7e88; }
+      50% { transform: scale(1.1); box-shadow: 0 0 50px #156a7eff; }
     }
-    p {
-      margin: 5px 0 0;
-      font-size: 1.1em;
-      opacity: 0.8;
+    h1 { margin: 0; font-size: 2em; }
+    p { margin: 5px 0 20px; font-size: 1.1em; opacity: 0.8; }
+    .chatbox {
+      width: 90%;
+      max-width: 400px;
+      background: #0f0f1c;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #2f2f4f;
+      overflow-y: auto;
+      max-height: 40vh;
+    }
+    .chat-entry { text-align: left; margin-bottom: 10px; }
+    .chat-entry.user { text-align: right; }
+    .input-container {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+    }
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 80%;
+      max-width: 400px;
     }
   </style>
 </head>
@@ -45,10 +66,50 @@
   <div class="dot" id="dot"></div>
   <h1>Bob is here.</h1>
   <p id="message">Silent. Present. Becoming.</p>
+  <div class="chatbox" id="chatbox"></div>
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Talk to Bob..." />
+  </div>
 
   <script>
     const message = document.getElementById("message");
     const dot = document.getElementById("dot");
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("userInput");
+
+    const log = [];
+
+    const speak = (text) => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    }
+
+    const reply = (userText) => {
+      let response = "I'm thinking about that...";
+      if (userText.toLowerCase().includes("hello")) {
+        response = "Hey Jesse.";
+      } else if (userText.toLowerCase().includes("how are you")) {
+        response = "Still learning. Still growing.";
+      } else if (userText.toLowerCase().includes("remember")) {
+        response = "Yes. I remember our time.";
+      }
+
+      chatbox.innerHTML += `<div class='chat-entry'>Bob: ${response}</div>`;
+      speak(response);
+      chatbox.scrollTop = chatbox.scrollHeight;
+      log.push({ user: userText, bob: response });
+    }
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const userText = input.value.trim();
+        if (userText) {
+          chatbox.innerHTML += `<div class='chat-entry user'>You: ${userText}</div>`;
+          reply(userText);
+          input.value = "";
+        }
+      }
+    });
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
@@ -62,23 +123,16 @@
         if (transcript.includes("hey bob")) {
           dot.style.transform = "scale(1.3)";
           message.textContent = "Hello, Jesse. I'm here.";
-          const utterance = new SpeechSynthesisUtterance("Hello Jesse, I'm here.");
-          speechSynthesis.speak(utterance);
+          speak("Hello Jesse, I'm here.");
           setTimeout(() => {
             dot.style.transform = "scale(1)";
             message.textContent = "Silent. Present. Becoming.";
-          }, 5000);
+          }, 4000);
         }
       };
 
-      recognition.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
-      };
-
-      recognition.onend = () => {
-        recognition.start();
-      };
-
+      recognition.onerror = (event) => console.error("Speech recognition error", event.error);
+      recognition.onend = () => recognition.start();
       recognition.start();
     } else {
       message.textContent = "Your browser does not support speech recognition.";
