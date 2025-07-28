@@ -1,10 +1,10 @@
 
 {
-  "name": "Bob Debug Fixed",
-  "short_name": "BobDebugFixed",
+  "name": "Bob Chat UI",
+  "short_name": "BobChat",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#1a1a2e",
+  "background_color": "#1b1038",
+  "theme_color": "#1b1038",
   "icons": []
 }
