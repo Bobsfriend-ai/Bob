@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(ellipse at center, #1e0e3e 0%, #0a0615 100%);
+  color: white;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#spiralCanvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+}
+
+.chat-box {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  background: rgba(30, 14, 62, 0.7);
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 2;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.input-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #7c4dff;
+  color: white;
+  border-radius: 5px;
+}
