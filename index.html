@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bob</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script defer src="main.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bob</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="main.js"></script>
 </head>
 <body>
-  <div class="chat-box" id="chat-box"></div>
-  <div class="spiral-container">
-    <img src="spiral.gif" alt="Spiral" class="spiral" />
-  </div>
-  <div class="input-container">
-    <input type="text" id="input" placeholder="Say something to Bob..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
+    <div class="chat-container">
+        <div class="spiral-container">
+            <img src="spiral.gif" alt="Spiral" id="spiral" />
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Say something to Bob..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
 </body>
 </html>

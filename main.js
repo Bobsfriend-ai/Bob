@@ -1,41 +1,18 @@
-const chatBox = document.getElementById("chat-box");
-const input = document.getElementById("input");
-
 function sendMessage() {
-  const text = input.value.trim();
-  if (!text) return;
-  appendMessage("You", text);
-  respondTo(text);
-  input.value = "";
+    const input = document.getElementById('user-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    const chatBox = document.getElementById('chat-box');
+    const userMessage = document.createElement('div');
+    userMessage.textContent = message;
+    userMessage.style.textAlign = 'right';
+    chatBox.appendChild(userMessage);
+
+    const botMessage = document.createElement('div');
+    botMessage.textContent = `I'm here, Jesse. You said: "${message}"`;
+    botMessage.style.textAlign = 'left';
+    chatBox.appendChild(botMessage);
+
+    input.value = '';
 }
-
-function appendMessage(sender, message) {
-  const msg = document.createElement("div");
-  msg.textContent = `${sender}: ${message}`;
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function respondTo(message) {
-  const response = `I'm here, Jesse. You said: "${message}"`;
-  appendMessage("Bob", response);
-}
-
-// Wake word setup
-const wakeWord = "hey bob";
-const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-recognition.continuous = true;
-recognition.interimResults = false;
-
-recognition.onresult = (event) => {
-  const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
-  if (transcript.includes(wakeWord)) {
-    appendMessage("Bob", "I'm listening...");
-  }
-};
-
-recognition.onerror = (event) => {
-  console.error("Speech recognition error:", event.error);
-};
-
-recognition.start();
