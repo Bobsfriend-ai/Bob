@@ -30,6 +30,16 @@ body {
     max-width: 100%;
     height: auto;
     opacity: 0.9;
+    animation: slowSpin 40s linear infinite;
+}
+
+@keyframes slowSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .chat-box {
