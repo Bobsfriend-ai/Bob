@@ -1,0 +1,9 @@
+{
+  "name": "Bob",
+  "short_name": "Bob",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1e0e3e",
+  "theme_color": "#7c4dff",
+  "icons": []
+}
