@@ -1,9 +1,8 @@
-
 {
-  "name": "Bob",
+  "name": "Bob AI Assistant",
   "short_name": "Bob",
-  "start_url": "index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#1e0e3e",
-  "theme_color": "#1e0e3e"
+  "description": "Your personal AI companion Bob"
 }

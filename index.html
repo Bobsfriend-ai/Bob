@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bob</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
@@ -13,6 +12,7 @@
     <span id="clock">00:00</span>
     <span id="weather">Loading weather...</span>
   </div>
+
   <div id="chat-container">
     <canvas id="spiral-canvas"></canvas>
     <div id="chat-box"></div>
@@ -44,13 +44,19 @@
       <option value="dreamweaver">Dreamweaver</option>
     </select>
   </div>
+  <input type="file" accept="image/*" capture="environment" id="camera-input" />
   <audio id="ambient-sound" loop autoplay muted>
     <source src="audio/rain.mp3" type="audio/mpeg">
   </audio>
   <script src="main.js" defer></script>
   <script src="spiral.js" defer></script>
-  <script src="voice.js" defer></script>
-  <script src="llm.js" defer></script>
   <script src="service-worker-register.js" defer></script>
+  <script>
+    Notification.requestPermission().then(result => {
+      if (result === 'granted') {
+        new Notification('Bob is ready to help you.');
+      }
+    });
+  </script>
 </body>
 </html>
