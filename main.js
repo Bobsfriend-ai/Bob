@@ -1,1 +1,0 @@
-const chatBox = document.getElementById('chat-box'); chatBox.innerText = 'Bob remembers you now.';
